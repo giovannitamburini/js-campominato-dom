@@ -79,6 +79,11 @@ main #cell-container {
     padding: 30px 0;
 }
 
+main #response {
+    text-align: center;
+    padding-bottom: 1em;
+}
+
 main #reset {
     display: none;
     margin: 0 auto;

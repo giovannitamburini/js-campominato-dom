@@ -219,7 +219,7 @@ function endGame (cell, array, index, numeroCelle, resultGame) {
                 let result = document.createElement('div');
                 result.innerText = 'HAI PERSO, il tuo punteggio è: ' + (contatoreClick - 1);
                 result.style.color = 'white';
-                result.style.fontSize = '1.2em'
+                result.style.fontSize = '1.5em'
                 resultGame.append(result);
                 
             } else {
@@ -236,7 +236,7 @@ function endGame (cell, array, index, numeroCelle, resultGame) {
             let winResult = document.createElement('div');
             winResult.innerHTML = 'HAI VINTO';
             winResult.style.color = 'white';
-            winResult.style.fontSize = '1.2em'
+            winResult.style.fontSize = '1.5em';
             resultGame.append(winResult);
 
             // aggiungo all'ultima casella cliccata(che decreta la vittoria) il background
