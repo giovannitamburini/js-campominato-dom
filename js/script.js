@@ -35,7 +35,11 @@ let numberCells = 0;
 // - creo una variabile per generare tramite funzione un numero casuale
 let randomNumber;
 
+// - creo una lista dove inserirò i numeri all'interno dei quali sarà inseita la bomba
 let bombNumbers = [];
+
+// richiamo un elemento dal Dom all'interno del quale inserirò il responso del gioco
+let responseElement = document.getElementById('response');
 
 
 // - creo un evento click sul bottone
@@ -81,19 +85,17 @@ generatorElement.addEventListener('click', function() {
     while (contatore < numberCells) {
 
         // - richiamo la funzione generatrice di cella
-        createCell(cellContainerElement, contatore + 1, cellPixel, bombNumbers);
+        createCell(cellContainerElement, contatore + 1, cellPixel, bombNumbers, responseElement, numberCells);
 
         // - aggiungo un unità al contatore per non creare un loop infinito
         contatore++
     }
-
 
     // - implemento la funzione generatrice di numeri casuali
     generateNumbers(numberCells, bombNumbers);
 
     // tolgo i tasti di selezione difficoltà e del generatore di griglia
     optionContainerElement.style.display = 'none';
-
 })
 
 
@@ -118,6 +120,9 @@ resetElement.addEventListener('click', function(){
     // nascondo il tasto reset dopo averlo utilizzato
     resetElement.style.display = 'none';
 
+    // elimino il contenuto del responso
+    responseElement.innerHTML = '';
+
     // rendo di nuovo disponibile il tasti di selezione difficoltà e di generazione griglia
     optionContainerElement.style.display = 'flex';
 
@@ -130,7 +135,7 @@ resetElement.addEventListener('click', function(){
 //FUNCTION----------------------------------------------
 
 //- funzione generatrice di cella
-function createCell (container, index, pixel, array) {
+function createCell (container, index, pixel, array, resultGame, numeroCelle) {
 
     //creo un elemento div
     let cell = document.createElement('div');
@@ -151,28 +156,51 @@ function createCell (container, index, pixel, array) {
     //appendo ad un elemento (in questo caso il parametro 'container') la cella creata
     container.append(cell);
 
+    // imposto un contatore per indicare il puteggio
+    contatoreClick = 0;
+
     //aggiungo un evento click al parametro cella
     cell.addEventListener('click', function() {
 
         //stampo in console il parametro index inserito all'interno dell'elemento cell
         console.log(index);
 
+        //aggiungo un unità al contatore per conteggiare il numero di volte che ho cliccato
+        contatoreClick++
+        
         // condizione di verifica della presenza di un numero nella lista array dove sono indicati i numeri in cui sono inserite le bombe
-        if (array.includes(index)) {
 
-            cell.style.backgroundColor = 'red';
+        if (contatoreClick < numeroCelle - 16) {
 
-            cell.removeEventListener('click', function(){});
-
+            if (array.includes(index)) {
+        
+                // background red per le celle bomba
+                cell.style.backgroundColor = 'red';
+        
+                // creazione e inserimento nel Dom del risultato
+                let result = document.createElement('div');
+                result.innerText = 'HAI PERSO, il tuo punteggio è: ' + (contatoreClick - 1);
+                resultGame.append(result);
+            
+            } else {
+            
+                //aggiungo/cambio il background dell'elemento cell
+                cell.style.backgroundColor = '#00FFFF';
+        
+            }
+            
         } else {
 
-            //aggiungo/cambio il background dell'elemento cell
-            cell.style.backgroundColor = '#00FFFF';
+            let winResult = document.createElement('div');
+            winResult.innerHTML = 'HAI VINTO';
+            resultGame.append(winResult);
 
         }
+
     })
 
-    return cell
+
+    return cell 
 
 }
 
@@ -203,3 +231,4 @@ function generateNumbers (max, array) {
 
     return randomNumber;
 }
+
