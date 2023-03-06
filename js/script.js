@@ -25,7 +25,6 @@ generatorElement.addEventListener('click', function() {
     // - imposto un contatore che mi servirà per uscire dal ciclo while
     contatore = 0;
 
-
     // creo una varibaile per impostare la misura della cella in px in base alla difficoltà selezionata
     let cellPixel;
 
@@ -134,4 +133,12 @@ function createCell (container, index, pixel) {
 
     return cell
 
+}
+
+
+//funzione generatrice numero casuale
+
+function randomNumber () {
+
+    
 }
