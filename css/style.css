@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+nav {
+    width: 100%;
+    height: 120px;
+    padding: 1em;
+    background-image: url(/img/navbar-wallpaper.webp);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav #logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 70%;
+}
+
+nav #logo img {
+    height: 100%;
+}
+
+nav #logo div {
+    color: white;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+nav #option-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav button,
+nav #option-container label,
+main #reset {
+    padding: 0.7em;
+    border-radius: 10px;
+    border: 3px solid yellow;
+    background-color: transparent;
+    color: white;
+    font-size: 1.1em;
+}
+
+nav #option-container label {
+    padding: 0.4em;
+}
+
+nav #option-container label select {
+    background-color: transparent;
+    border: 1px solid yellow;
+    color: orange;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+main {
+    min-height: calc(100vh - 120px - 100px);
+    width: 100%;
+    background-color: blue;
+    padding-bottom: 1em;
+}
+
+main #cell-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+main #reset {
+    display: none;
+    margin: 0 auto;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    padding: 20px;
+    background-color: #0d1117;
+    color: white;
+}
