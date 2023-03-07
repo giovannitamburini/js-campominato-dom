@@ -167,84 +167,94 @@ function createCell (container, index, pixel, array, resultGame, numeroCelle) {
 // funzione generatrice dell'inetrazioni con le singole celle durante il gioco
 function endGame (cell, array, index, numeroCelle, resultGame) {
 
+    // inizializzo un contatore per il numero di celle cliccate
     contatoreClick = 0;
 
-     //aggiungo un evento click al parametro cella
+     // aggiungo un evento click al parametro cella
     cell.addEventListener('click', function () {
+       
+           // stampo in console il parametro index inserito all'interno dell'elemento cell
+           console.log(index);
+
+           // dopo aver cliccato una cella, tolog la possibilità di ricliccarla
+           cell.classList.add('no-click');
+       
+           // aggiungo un unità al contatore per conteggiare il numero di volte che ho cliccato
+           contatoreClick++
+               
+           // condizione di verifica della presenza di un numero nella lista array dove sono indicati i numeri in cui sono inserite le bombe
+           if (contatoreClick < numeroCelle - 15) {
     
-        //stampo in console il parametro index inserito all'interno dell'elemento cell
-        console.log(index);
+               if (array.includes(index)) {
+               
+                   // background red per le celle bomba
+                   cell.style.backgroundColor = 'red';
     
-        //aggiungo un unità al contatore per conteggiare il numero di volte che ho cliccato
-        contatoreClick++
-            
-        // condizione di verifica della presenza di un numero nella lista array dove sono indicati i numeri in cui sono inserite le bombe
-        if (contatoreClick < numeroCelle - 15) {
-
-            if (array.includes(index)) {
-            
-                // background red per le celle bomba
-                cell.style.backgroundColor = 'red';
-
-                // creo una variabile per creare un array di celle
-                let together = document.querySelectorAll('.red');
-
-                // imposto un valore inziale per il contatore
-                contatoreRemoveClick = 0;
-
-                //creo un ciclo che al cliccare di una bomba, rivela tutte le caselle bomba presenti nella griglia
-                while (contatoreRemoveClick < numeroCelle) {
-
-                    // condizione tale per cui se il numero all'interno della cella controllata è contenuto nell'elenco dei numeri in cui ci sono le bombe
-                    if (array.includes(parseInt(together[contatoreRemoveClick].textContent))) {
-
-                        // aggiungo il background di colore rosso(come avverrebbe se lo cliccassi normalmente)
-                        together[contatoreRemoveClick].style.backgroundColor = 'red';
-
-                    } else {
-
-                        // aggiungo il background di colore azzurro(come avverrebbe se lo cliccassi normalmente)
-                        together[contatoreRemoveClick].style.backgroundColor = '#00FFFF';
-
-                    }
-
-                    // rimozione dell'evento click ma non funziona
-                    // cell.removeEventListener('click');
-                    
-                    //aumento di un'unità il contatore per non creare un loop infinito
-                    contatoreRemoveClick++
-                }
-            
-                // creazione e inserimento nel Dom del risultato
-                let result = document.createElement('div');
-                result.innerText = 'HAI PERSO, il tuo punteggio è: ' + (contatoreClick - 1);
-                result.style.color = 'white';
-                result.style.fontSize = '1.5em'
-                resultGame.append(result);
-                
-            } else {
-                
-                //aggiungo/cambio il background dell'elemento cell
-                cell.style.backgroundColor = '#00FFFF';
-            
-            }
-          
-          // caso in cui vinci senza mai cliccare le bombe
-        } else {
-
-            // appendo un elemento nel Dom all'interno del quale è inserito il messaggio della vittoria
-            let winResult = document.createElement('div');
-            winResult.innerHTML = 'HAI VINTO';
-            winResult.style.color = 'white';
-            winResult.style.fontSize = '1.5em';
-            resultGame.append(winResult);
-
-            // aggiungo all'ultima casella cliccata(che decreta la vittoria) il background
-            cell.style.backgroundColor = '#00FFFF';
+                   // creo una variabile per creare un array di celle
+                   let together = document.querySelectorAll('.red');
     
-        }
+                   // imposto un valore inziale per il contatore
+                   contatoreRemoveClick = 0;
     
+                   //creo un ciclo che al cliccare di una bomba, rivela tutte le caselle bomba presenti nella griglia
+                   while (contatoreRemoveClick < numeroCelle) {
+
+                    // tolgo la possibilità di cliccare l'elemento con indice 'contatoreRemoveClick'
+                    together[contatoreRemoveClick].classList.add('no-click');
+    
+                       // condizione tale per cui se il numero all'interno della cella controllata è contenuto nell'elenco dei numeri in cui ci sono le bombe
+                       if (array.includes(parseInt(together[contatoreRemoveClick].textContent))) {
+    
+                           // aggiungo il background di colore rosso(come avverrebbe se lo cliccassi normalmente)
+                           together[contatoreRemoveClick].style.backgroundColor = 'red';
+    
+                       } else {
+    
+                           // aggiungo il background di colore azzurro(come avverrebbe se lo cliccassi normalmente)
+                           together[contatoreRemoveClick].style.backgroundColor = '#00FFFF';
+    
+                       }
+    
+                       // rimozione dell'evento click ma non funziona
+                       // cell.removeEventListener('click');
+                       
+                       //aumento di un'unità il contatore per non creare un loop infinito
+                       contatoreRemoveClick++
+                   }
+               
+                   // creazione e inserimento nel Dom del risultato
+                   let result = document.createElement('div');
+                   result.innerText = 'HAI PERSO, il tuo punteggio è: ' + (contatoreClick - 1);
+                   result.style.color = 'white';
+                   result.style.fontSize = '1.5em';
+                   resultGame.append(result);
+                   
+               } else {
+                   
+                   //aggiungo/cambio il background dell'elemento cell
+                   cell.style.backgroundColor = '#00FFFF';
+               
+               }
+             
+             // caso in cui vinci senza mai cliccare le bombe
+           } else {
+    
+               // appendo un elemento nel Dom all'interno del quale è inserito il messaggio della vittoria
+               let winResult = document.createElement('div');
+               winResult.innerHTML = 'HAI VINTO';
+               winResult.style.color = 'white';
+               winResult.style.fontSize = '1.5em';
+               resultGame.append(winResult);
+    
+               // aggiungo all'ultima casella cliccata(che decreta la vittoria) il background
+               cell.style.backgroundColor = '#00FFFF';
+       
+           }
+       
     })
+
+    
+
 
      // ciò che ottengo dalla funzione
     return cell

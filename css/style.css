@@ -89,6 +89,11 @@ main #reset {
     margin: 0 auto;
 }
 
+
+.no-click {
+    pointer-events: none;
+}
+
 footer {
     display: flex;
     align-items: center;
